@@ -1,0 +1,222 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<h1>The 'Scrap' Tool is Disabled</h1>
+			<p>Finding your way here took some insight. Unfortunately t'was for naught, at least temporarily. The service call is currently disabled.</p>
+			<p>The intention is create a calculator aimed at improving utility of basic loot. A meta 2 module may usually be worth 90% jita but sometimes it can be much more if reprocessed. </p>
+			<p>If you care enough to provide feedback, tell me what you would find useful and why. The current form does both more and less than is helpful and knowing your usecase would let me build for it.</p>
+		</div>
+		<div class="col-md-5 col-xs-12">
+			<h2>Input stuff</h2>
+			<form class="well well-sm" ng-submit="callScrapInto(system,pastedItems)">
+				<textarea rows="10" class="form-control" ng-model="pastedItems" placeholder="Copy paste stuff here"></textarea>
+				<div class="controls form-inline clearfix">
+					<button type="submit" class="btn btn-default">Submit</button>
+					<div class="pull-right">
+						<label for="exampleInputName2">Selected System</label>
+						<input type="text" class="form-control" ng-model="system" id="systemEntry"
+							placeholder="Enter system id (not name)">
+					</div>
+				</div>
+			</form>
+			
+			
+			<form class="well well-sm form-horizontal">
+				<div class="form-group">
+					<label for="baseReprocessing" class="col-sm-6 control-label">Base Reprocessing</label>
+				    <div class="col-sm-6">
+				      <input type="number" class="form-control" id="baseReprocessing" ng-model="Logic.baseReprocessing" ng-change="Logic.updateReprocessing()">
+				    </div>
+				</div>
+				<div class="form-group">
+					<label for="taxrate" class="col-sm-6 control-label">Tax Rate</label>
+				    <div class="col-sm-6">
+				      <input type="number" class="form-control" id="taxrate" ng-model="Logic.taxrate" ng-change="Logic.updateReprocessing()">
+				    </div>
+				</div>
+				<div class="form-group">
+					<label for="baseReprocessing" class="col-sm-6 control-label">Reprocessing Level</label>
+				    <div class="col-sm-6">
+					    <select class="form-control" style="width:auto" ng-model="Logic.skill" ng-change="Logic.updateReprocessing()">
+					    	<option value="0">0</option>
+					    	<option value="1">1</option>
+					    	<option value="2">2</option>
+					    	<option value="3">3</option>
+					    	<option value="4">4</option>
+					    	<option value="5">5</option>
+					    </select>
+				    </div>
+				</div>
+				
+				<p>Base Reprocessing: {{Logic.baseReprocessing}}</p>
+				<p>Tax Rate: {{Logic.taxrate}}</p>
+				<p>Scrap Reprocessing Skill: {{Logic.skill}}</p>
+				<p>Calculated Reprocessing Percent: {{Logic.netReprocessing | number:2}}</p>
+				
+			</form>
+		</div>
+		
+		<div class="col-md-7 col-xs-12">
+		
+				<table class="table" style="background-color:lightgrey">
+					<tr>
+						<th>View</th>
+						<th>Item</th>
+						<th>Qty</th>
+						<th style="text-align:center">
+							Jita Buy 
+							<br>
+							Market
+							<br>
+							Scrap
+							<br>
+							Scrap/Market
+						</th>
+						<th style="text-align:center">
+							Jita Sell
+							<br>
+							<small>Market</small>
+							<br>
+							<small>Scrap</small>
+							<br>
+							<small>Scrap/Market</small>
+						</th>
+						<th style="text-align:center">
+							Local Buy
+							<br>
+							<small>Market</small>
+							<br>
+							<small>Scrap</small>
+							<br>
+							<small>Scrap/Market</small>
+						</th>
+						<th style="text-align:center">
+							Local Sell
+							<br>
+							<small>Market</small>
+							<br>
+							<small>Scrap</small>
+							<br>
+							<small>Scrap/Market</small>
+						</th>
+					</tr>
+					<tr ng-repeat-start="(typeid, details) in Logic.itemdetails.items">
+						<td>
+							<i class="fa fa-chevron-right" ng-hide="expanded" ng-click="expanded = true"></i>
+							<i class="fa fa-chevron-down" ng-show="expanded" ng-click="expanded = false"></i>
+						</td>
+						<td>{{Logic.itemdetails.info[typeid].name}}</td>
+						<td>{{details.quantity}}</td>
+						<td class="price">
+							<span>{{details.prices.jitabuy.market | number:2 }} </span>
+							<br>
+							<span>{{details.prices.jitabuy.reprocessed | number:2 }} </span>
+							<br>
+							<span ng-class="details.prices.jitabuy.percent > 1 ? 'text-primary' : 'text-danger'">
+								{{details.prices.jitabuy.percent * 100 | number:2 }}% 
+							</span>
+						</td>
+						<td class="price">
+							<span>{{details.prices.jitasell.market | number:2 }} </span>
+							<br>
+							<span>{{details.prices.jitasell.reprocessed | number:2 }} </span>
+							<br>
+							<span ng-class="details.prices.jitasell.percent > 1 ? 'text-primary' : 'text-danger'">
+								{{details.prices.jitasell.percent * 100 | number:2 }}% 
+							</span>
+						</td>
+						<td class="price">
+							<span>{{details.prices.localbuy.market | number:2 }} </span>
+							<br>
+							<span>{{details.prices.localbuy.reprocessed | number:2 }} </span>
+							<br>
+							<span ng-class="details.prices.localbuy.percent > 1 ? 'text-primary' : 'text-danger'">
+								{{details.prices.localbuy.percent * 100 | number:2 }}% 
+							</span>
+						</td>
+						<td class="price">
+							<span>{{details.prices.localsell.market | number:2 }} </span>
+							<br>
+							<span>{{details.prices.localsell.reprocessed | number:2 }} </span>
+							<br>
+							<span ng-class="details.prices.localsell.percent > 1 ? 'text-primary' : 'text-danger'">
+								{{details.prices.localsell.percent * 100 | number:2 }}% 
+							</span>
+						</td>
+						</tr>
+						
+						<tr ng-repeat = "ingredient in details.recipe" ng-show="expanded" class="subTable" ng-repeat-end>
+							<td></td>
+							<td>{{Logic.itemdetails.info[ingredient.id].name}}</td>
+							<td>{{ingredient.reprocessedQuantity}}</td>
+							<td>{{Logic.jitaprices[ingredient.id].buy.fivePercent * ingredient.reprocessedQuantity | number:2}}</td>
+							<td>{{Logic.jitaprices[ingredient.id].sell.fivePercent * ingredient.reprocessedQuantity | number:2}}</td>
+							<td>{{Logic.selectedprices[ingredient.id].buy.fivePercent * ingredient.reprocessedQuantity | number:2}}</td>
+							<td>{{Logic.selectedprices[ingredient.id].sell.fivePercent * ingredient.reprocessedQuantity | number:2}}</td>
+						</tr>
+						
+					
+				</table>
+				
+				<!-- <h4 ng-click="collapse = !collapse">
+					<a>{{Logic.itemdetails.info[typeid].name}}</a>
+					<p>
+						Quantity: {{details.quantity}}, 
+							Jita 5% buy: {{details.prices.jitabuy.market | number:2}}, 
+							Scrap Jita 5% buy {{ details.prices.jitabuy.reprocessed | number:2}}
+					</p>
+				</h4> -->
+				
+				
+				<!-- <table class="table table-striped table-condensed" ng-show=collapse>
+					<tr>
+						<th>Ingredient</th>
+						<th>Quantity</th>
+						<th>Jita 5% Buy</th>
+						<th>Selected 5% Buy</th>
+						<th>Jita 5% Sell</th>
+						<th>Selected 5% Sell</th>
+					</tr>
+					<tr ng-repeat="ingredient in details.recipe">
+						<td>{{Logic.itemdetails.info[ingredient.id].name}}</td>
+						<td>{{ingredient.reprocessedQuantity}}</td>
+						<td>{{Logic.jitaprices[ingredient.id].buy.fivePercent * ingredient.reprocessedQuantity | number:2}}</td>
+						<td>{{Logic.selectedprices[ingredient.id].buy.fivePercent * ingredient.reprocessedQuantity | number:2}}</td>
+						<td>{{Logic.jitaprices[ingredient.id].sell.fivePercent * ingredient.reprocessedQuantity | number:2}}</td>
+						<td>{{Logic.selectedprices[ingredient.id].sell.fivePercent * ingredient.reprocessedQuantity | number:2}}</td>
+					</tr>
+					<tr>
+						<td>Scrap Totals</td>
+						<td></td>
+						<td>{{details.prices.jitabuy.reprocessed | number:2}}</td>
+						<td>{{details.prices.localbuy.reprocessed | number:2}}</td>
+						<td>{{details.prices.jitasell.reprocessed | number:2}}</td>
+						<td>{{details.prices.localsell.reprocessed | number:2}}</td>
+					</tr>
+					<tr>
+						<td>Market Value</td>
+						<td></td>
+						<td>{{details.prices.jitabuy.market | number:2}}</td>
+						<td>{{details.prices.localbuy.market | number:2}}</td>
+						<td>{{details.prices.jitasell.market | number:2}}</td>
+						<td>{{details.prices.localsell.market | number:2}}</td>
+					</tr>
+					<tr>
+						<td>Percents</td>
+						<td></td>
+						<td>{{details.prices.jitabuy.percent | number:2}}</td>
+						<td>{{details.prices.localbuy.percent | number:2}}</td>
+						<td>{{details.prices.jitasell.percent | number:2}}</td>
+						<td>{{details.prices.localsell.percent | number:2}}</td>
+					</tr>
+					
+				</table> -->
+			
+		<!-- 	<h5>info: {{Logic.itemdetails.info}}</h5>
+			<h5>components: {{Logic.itemdetails.components}}</h5>
+			<h5>quantities: {{Logic.itemdetails.quantities}}</h5>
+			<h5>jita market info: {{Logic.jitaprices}}</h5>
+			<h5>selected market info: {{Logic.selectedprices}}</h5> -->
+		</div>
+	</div>
+</div>

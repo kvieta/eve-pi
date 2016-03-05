@@ -1,0 +1,56 @@
+<div class="input-group input-group-sm">
+	<!-- Delete Factory Button -->
+	<span class="input-group-btn">
+		<button class="btn btn-danger" ng-click="removeThis(); p.refreshFitting()">
+			<span class="glyphicon glyphicon-remove"></span>
+		</button>
+	</span>
+	
+	<!-- Select Datalist -->
+	<select class="input form-control" style="width:auto"
+		ng-model="factory.schematic"
+		ng-options="type.id as type.name for type in typeList | orderBy:'name'"
+		ng-change="p.refreshImportExports()"></select>
+		<!-- ng-options="DETAILS[type].name for type in typeList | orderBy" -->
+	<!-- Number Buttons -->
+	<span class="input-group input-group-sm">
+	  <span class="input-group-btn">
+		  <button type="button" class="btn btn-default btn-number" ng-if="factory.number>0" ng-click="
+			factory.number = factory.number-1;
+			p.refreshFitting();
+			p.refreshImportExports();">
+			  <span class="glyphicon glyphicon-minus"></span>
+		  </button>
+		  <button type="button" class="btn btn-disabled btn-number" ng-if="!factory.number>0">
+			  <span class="glyphicon glyphicon-minus"></span>
+		  </button>
+	  </span>
+	  <input type="number" ng-model="factory.number" class="form-control input-number pull-left" 
+		style="width:50px" maxlength="2" ng-blur="
+			p.refreshFitting();
+			p.refreshImportExports()"/> 
+		<!-- min="1" max="10" style="width:30px" maxlength=2> -->
+	  <span class="input-group-btn pull-left">
+		  <button type="button" class="btn btn-default btn-number pull-left"
+			 ng-click="factory.number = factory.number + 1;
+			 	p.refreshFitting();
+			 	p.refreshImportExports()">
+			  <span class="glyphicon glyphicon-plus"></span>
+		  </button>
+	  </span>
+	  <!-- addPrerequisiteProduction -->
+	  <span class="input-group-btn">
+		  <button type="button" class="btn btn-success btn-duplicate pull-left"
+			ng-click="p.addPrerequisiteProduction(factory)">
+				<i class="fa fa-link"></i>
+		  </button>
+	  </span>
+	  
+	  <span ng-if="p.isFactoryPlanet">
+			<input type="number" ng-model=factory.avgActiveCycles 
+			class="form-control input-number input-sm utilizationField"
+			ng-blur="p.refreshImportExports()">
+	  </span>
+	
+	</span><!-- Number input -->
+</div><!-- Input Group repeat -->
