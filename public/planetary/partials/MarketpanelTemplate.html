@@ -13,17 +13,19 @@
 					<div class="col-md-4">
 						<form class="form-horizontal">
 							<div class="form-group">
-								<label for="marketLocationInput" class="col-xs-7 control-label">Market Location</label>
-								<div class="col-xs-5">
-									<input type="text" class="form-control" id="marketLocationInput" placeholder="Needs to be a select" 
-										ng-model="Logic.marketId">
+								<label for="marketLocationInput" class="col-xs-5 control-label">Market Location</label>
+								<div class="col-xs-7">
+									<select class="input form-control" style="width:auto; font-size:80%"
+										ng-model="Logic.marketId"
+										ng-options="key as value for (key, value) in MARKETS | orderBy:value"
+										ng-change="Logic.getMarketInfo(Logic.marketId)"></select>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="buyOrSellInput" class="col-xs-7 control-label">Import Order Type</label>
 								<div class="col-xs-5">
 									<select class="form-control" id="buyOrSellInput" ng-model="Logic.importOrderType"
-										ng-change="Logic.refreshSystemMarketTotals()">
+										ng-change="Logic.refreshSystemMarketTotals()" style="width:auto">
 										<option value="buy">BUY</option>
 										<option value="sell">SELL</option>
 									</select>
@@ -33,7 +35,7 @@
 								<label for="buyOrSellInput" class="col-xs-7 control-label">Export Order Type</label>
 								<div class="col-xs-5">
 									<select class="form-control" id="buyOrSellInput" ng-model="Logic.exportOrderType"
-										ng-change="Logic.refreshSystemMarketTotals()">
+										ng-change="Logic.refreshSystemMarketTotals()" style="width:auto">
 										<option value="buy">BUY</option>
 										<option value="sell">SELL</option>
 									</select>

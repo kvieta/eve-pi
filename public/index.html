@@ -21,11 +21,13 @@
 	<link rel="stylesheet" href="css/app.css">
 
 	<!-- Global Imports and Configs (before the references) -->
+	<script src="js/marketIDs.js" type="text/javascript"></script>
 	<script src="js/MarketService.js" type="text/javascript"></script>
   
 	<!-- Planet Gadget Stuff -->
 	<script src="planetary/services/PlanetData.js" type="text/javascript"></script>
 	<script src="planetary/services/Planet.js" type="text/javascript"></script>
+	<script src="planetary/services/Persist.js" type="text/javascript"></script>
 	<script src="planetary/services/Logic.js" type="text/javascript"></script>
 	<script src="planetary/controller/PlanetController.js" type="text/javascript"></script>
 
@@ -35,6 +37,7 @@
 	<script src="planetary/directives/HelpDirective.js" type="text/javascript"></script>
 	<script src="planetary/directives/MarketpanelDirective.js" type="text/javascript"></script>
 	<script src="planetary/directives/InfopanelDirective.js" type="text/javascript"></script>
+	<script src="planetary/directives/SaveDirective.js" type="text/javascript"></script>
 
 	<!-- Scrap Gadget Stuff -->
 	<script src="scrap/services/Logic.js" type="text/javascript"></script>
@@ -54,7 +57,7 @@
 	-->
 </head>
 
-<body>
+<body ng-controller="baseController" class="generalBackgroundColor generalTextColor">
 	<nav class="navbar navbar-default navbar-static-top" role="navigation">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -74,12 +77,14 @@
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown">Navigation<strong class="caret"></strong></a>
 						<ul class="dropdown-menu">
-							<li><a href="#/pi">Planetary</a></li>
-							<!-- <li><a href="#/scrap">Scrap (Alpha)</a></li> -->
+							<!-- <li><a href="#/pi">Planetary</a></li>
+							<li><a href="#/scrap">Scrap (Alpha)</a></li>
+							<li class="divider"></li> -->
+							<li><a ng-click="baseMenu.save()">Save</a></li>
 							<li class="divider"></li>
 							<li><a href="https://github.com/Kurt-Midas/Gadgets-Node" target="_blank">
 								Project Github
-							</a>
+							</a></li>
 						</ul>
 					</li>
 				</ul>

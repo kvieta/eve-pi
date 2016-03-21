@@ -14,7 +14,7 @@ app.factory('Planet', ['FACILITIES', 'PRODUCT', 'LEVEL', 'PiDataModel',
 //	var Planet = function() {
 //	function Planet(name) {
 	function Planet(argName){
-		console.log("Inside Planet.constructor");
+		//console.log("Inside Planet.constructor");
 //		console.log("data connection in Planet: " + angular.toJson(PiData.getData().planetMap[11]));
 //		this.name = name;
 		this.name = argName;
@@ -61,12 +61,12 @@ app.factory('Planet', ['FACILITIES', 'PRODUCT', 'LEVEL', 'PiDataModel',
 			console.log("planet is working");
 		},
 		addBasic: function(){
-			console.log("Inside Planet.addBasic");
+			//console.log("Inside Planet.addBasic");
 			this.factoriesBasic.push({schematic:0, number: 1, avgActiveCycles: 1});
 			this.refreshFitting();
 		},
 		deleteBasic: function(f){
-			console.log("Inside Planet.deleteBasic with arg: " + angular.toJson(f));
+			//console.log("Inside Planet.deleteBasic with arg: " + angular.toJson(f));
 			var sch = f.schematic;
 			var num = f.number;
 			var index = this.factoriesBasic.indexOf(f);
@@ -80,12 +80,12 @@ app.factory('Planet', ['FACILITIES', 'PRODUCT', 'LEVEL', 'PiDataModel',
 			}
 		},
 		addAdvanced: function(){
-			console.log("Inside Planet.addAdvanced");
+			//console.log("Inside Planet.addAdvanced");
 			this.factoriesAdvanced.push({schematic:0, number: 1, avgActiveCycles: 1});
 			this.refreshFitting();
 		},
 		deleteAdvanced: function(f){
-			console.log("Inside Planet.deleteAdvanced with arg: " + angular.toJson(f));
+			//console.log("Inside Planet.deleteAdvanced with arg: " + angular.toJson(f));
 			var sch = f.schematic;
 			var num = f.number;
 			var index = this.factoriesAdvanced.indexOf(f);
@@ -98,7 +98,7 @@ app.factory('Planet', ['FACILITIES', 'PRODUCT', 'LEVEL', 'PiDataModel',
 			}
 		},
 		addHightech: function(){
-			console.log("Inside Planet.addHightech");
+			//console.log("Inside Planet.addHightech");
 			this.factoriesHightech.push({schematic:0, number: 1, avgActiveCycles: 1});
 			this.refreshFitting();
 			if(this.factoriesHightech.length == 1){
@@ -106,7 +106,7 @@ app.factory('Planet', ['FACILITIES', 'PRODUCT', 'LEVEL', 'PiDataModel',
 			}
 		},
 		deleteHightech: function(f){
-			console.log("Inside Planet.deleteHightech with arg: " + angular.toJson(f));
+			//console.log("Inside Planet.deleteHightech with arg: " + angular.toJson(f));
 			var sch = f.schematic;
 			var num = f.number;
 			var index = this.factoriesHightech.indexOf(f);
@@ -123,12 +123,12 @@ app.factory('Planet', ['FACILITIES', 'PRODUCT', 'LEVEL', 'PiDataModel',
 			}
 		},
 		addExtractor: function(){
-			console.log("Inside Planet.addExtractor");
+			//console.log("Inside Planet.addExtractor");
 			this.extractors.push({resourceId: 0, headcount: 0});
 			this.refreshFitting();
 		},
 		deleteExtractor: function(e){
-			console.log("Inside Planet.deleteExtractor with arg: " + angular.toJson(e));
+			//console.log("Inside Planet.deleteExtractor with arg: " + angular.toJson(e));
 			var sch = e.resourceId;
 			var index = this.extractors.indexOf(e);
 			this.extractors.splice(index, 1);
@@ -139,7 +139,7 @@ app.factory('Planet', ['FACILITIES', 'PRODUCT', 'LEVEL', 'PiDataModel',
 			}
 		},
 		refreshStorage: function(){
-			console.log("Inside Planet.refreshStorage");
+			//console.log("Inside Planet.refreshStorage");
 			if(this.restrictPads){
 				this.totalStorage = this.numLaunchpads * 10000
 			}
@@ -163,7 +163,7 @@ app.factory('Planet', ['FACILITIES', 'PRODUCT', 'LEVEL', 'PiDataModel',
 			return effectiveIoDetails;
 		},
 		refreshImportExports: function(){
-			console.log("Inside Planet.refreshImportExports");
+			//console.log("Inside Planet.refreshImportExports");
 			/* 1. Iterate over all factories and build ioList (schematic vs Factory number/active)
 			 * 2. Update storage
 			 * 3. Update taxes
@@ -181,7 +181,7 @@ app.factory('Planet', ['FACILITIES', 'PRODUCT', 'LEVEL', 'PiDataModel',
 				}
 			}, this)
 			angular.forEach(this.extractors, function(e){
-				console.log("extractor helper: " + angular.toJson(e))
+				// console.log("extractor helper: " + angular.toJson(e))
 				if(e.resourceId){
 					var index = arrayObjectIndexOf(this.ioDetails, e.resourceId, "id")
 					if(index >= 0){
@@ -198,11 +198,11 @@ app.factory('Planet', ['FACILITIES', 'PRODUCT', 'LEVEL', 'PiDataModel',
 			this.refreshTaxes();
 		},
 		ioFactoryHelper : function(factoryList, speed){
-			console.log("Inside Planet.ioFactoryHelper with arg: " + angular.toJson(factoryList));
+			//console.log("Inside Planet.ioFactoryHelper with arg: " + angular.toJson(factoryList));
 			//how to make this private?
 //			console.log("ioFactoryHelper : " + angular.toJson(factoryList));
 			angular.forEach(factoryList, function(factory){
-				console.log("ioHelper: " + angular.toJson(factory));
+				// console.log("ioHelper: " + angular.toJson(factory));
 				if(factory.schematic){
 					var item = PiData.getData().schematicMap[factory.schematic];
 //					console.log("ioFactoryHelper: Working on " + angular.toJson(item));
@@ -231,7 +231,7 @@ app.factory('Planet', ['FACILITIES', 'PRODUCT', 'LEVEL', 'PiDataModel',
 			},this)
 		},
 		refreshRuntime: function(){
-			console.log("Inside Planet.refreshRuntime");
+			//console.log("Inside Planet.refreshRuntime");
 			/* 1. Build import and export volumes
 			 * 2. Set runtime
 			 */
@@ -241,7 +241,7 @@ app.factory('Planet', ['FACILITIES', 'PRODUCT', 'LEVEL', 'PiDataModel',
 			angular.forEach(this.ioDetails, function(item){
 //				console.log("refreshRuntime: " + angular.toJson(item) + ", " + angular.toJson(PiData.getData().itemDetails[item.id]) + 
 //						", " + PRODUCT.TIER_VOLUME[PiData.getData().itemDetails[item.id].tier])
-				console.log(angular.toJson(item));
+				// console.log(angular.toJson(item));
 				if(item.quantity > 0){
 					var details = PiData.getData().itemDetails[item.id];
 					var tier = details.tier;
@@ -261,10 +261,10 @@ app.factory('Planet', ['FACILITIES', 'PRODUCT', 'LEVEL', 'PiDataModel',
 					this.runtime = Math.floor(this.totalStorage / this.exportVolume);
 				} //runtime = infinite?
 			}
-			console.log("import volume: " + this.importVolume + ", ExportVolume: " + this.exportVolume);
+			// console.log("import volume: " + this.importVolume + ", ExportVolume: " + this.exportVolume);
 		},
 		refreshTaxes: function(){
-			console.log("Inside Planet.refreshTaxes");
+			//console.log("Inside Planet.refreshTaxes");
 			this.exportTaxes = 0;
 			this.importTaxes = 0;
 			angular.forEach(this.ioDetails, function(item){
@@ -281,7 +281,7 @@ app.factory('Planet', ['FACILITIES', 'PRODUCT', 'LEVEL', 'PiDataModel',
 			}, this)
 		},
 		refreshAllowedPlanets: function(){
-			console.log("Inside Planet.refreshAllowedPlanets");
+			//console.log("Inside Planet.refreshAllowedPlanets");
 			var potentials = [];
 			var allowed = [];
 			if(this.factoriesHightech.length){
@@ -298,30 +298,30 @@ app.factory('Planet', ['FACILITIES', 'PRODUCT', 'LEVEL', 'PiDataModel',
 				var resources = PiData.getData().planetMap[id]
 				if(!resources){
 					//should only trigger if shit happens
-					console.log("refreshAllowedPlanets: Shit Happened");
+					console.error("refreshAllowedPlanets: Shit Happened. Probably your fault");
 				} else if (this.extractors.length > 0){
-					console.log("refreshAllowedPlanets: checking planet " + id + " with " + resources);
+					// console.log("refreshAllowedPlanets: checking planet " + id + " with " + resources);
 					angular.forEach(this.extractors, function(e){
-						console.log("refreshAllowedPlanets, " + angular.toJson(e));
+						// console.log("refreshAllowedPlanets, " + angular.toJson(e));
 						if(e.resourceId && resources.indexOf(e.resourceId) == -1){
 							planetHasAllResources = false;
 						}
 					})
 					if(planetHasAllResources){
-						console.log("planet has all resources");
+						// console.log("planet has all resources");
 						allowed.push(id);
 					}
-					else {console.log("planet did not have all resources")}
+					// else {console.log("planet did not have all resources")}
 				} else { //if no extractors, no logic. Therefore...
 					allowed = potentials;
 				}
 			}, this)
-			console.log("allowed planet list populated: " + angular.toJson(allowed));
+			// console.log("allowed planet list populated: " + angular.toJson(allowed));
 			this.allowedPlanets = allowed;
 			this.refreshResourceDatalist();
 		},
 		refreshResourceDatalist(){
-			console.log("Inside Planet.refreshResourceDatalist");
+			//console.log("Inside Planet.refreshResourceDatalist");
 			var datalist = [];
 			angular.forEach(this.allowedPlanets, function(p){
 				angular.forEach(PiData.getData().planetMap[p], function(resource){
@@ -337,7 +337,7 @@ app.factory('Planet', ['FACILITIES', 'PRODUCT', 'LEVEL', 'PiDataModel',
 			this.resourceDatalist = resourceList;
 		},
 		refreshFitting: function(){
-			console.log("Inside Planet.refreshFitting");
+			//console.log("Inside Planet.refreshFitting");
 			var numBasicFactories = 0;
 			var numAdvancedFactories = 0;
 			var numHightechFactories = 0;
@@ -392,41 +392,41 @@ app.factory('Planet', ['FACILITIES', 'PRODUCT', 'LEVEL', 'PiDataModel',
 				LEVEL.LEVEL[this.level].COST;
 		},
 		addPrerequisiteProduction: function(factory){
-			console.log("Inside Planet.addPrerequisiteProduction with args: " + angular.toJson(factory));
+			//console.log("Inside Planet.addPrerequisiteProduction with args: " + angular.toJson(factory));
 			if(!factory.schematic){
 				console.log("No schematic to get prerequisites for!");
 				return;
 			}
 			if(PiData.getData().itemDetails[factory.schematic].tier == 0){
-				console.log("Raw materials have no prerequisites!");
+				console.log("Raw materials have no prerequisites!"); //shouldn't trigger... probably. 
 			}
 			baseSchematic = PiData.getData().schematicMap[factory.schematic]
-			console.log("baseSchematic: " + angular.toJson(baseSchematic));
+			// console.log("baseSchematic: " + angular.toJson(baseSchematic));
 			angular.forEach(baseSchematic.recipe, function(component){
 				componentData = PiData.getData().itemDetails[component.typeid];
-				console.log("componentData: " + angular.toJson(componentData));
+				// console.log("componentData: " + angular.toJson(componentData));
 				if(componentData.tier == 1){
-					console.log("adding basic")
+					// console.log("adding basic")
 					this.factoriesBasic.push({schematic:''+component.typeid, number: 0, avgActiveCycles: 1});
 				}
 				else if(componentData.tier == 2 || componentData.tier == 3){
-					console.log("adding advanced")
+					// console.log("adding advanced")
 					this.factoriesAdvanced.push({schematic:''+component.typeid, number: 0, avgActiveCycles: 1});
 				}
 				else if(componentData.tier == 4){
-					console.log("adding... hightech? As a prerequisite?")
+					// console.log("adding... hightech? As a prerequisite?")
 					this.factoriesHightech.push({schematic:''+component.typeid, number: 0, avgActiveCycles: 1});
 				}
 				else if(componentData.tier == 0){
 					//add extractor after checking whether you can
 					if(arrayObjectIndexOf(this.resourceDatalist, component.typeid, "id") >= 0){
-						console.log("adding extractor");
+						// console.log("adding extractor");
 						this.extractors.push({resourceId:component.typeid, headcount: 0}); // no idea why this is different
 						this.refreshFitting();
 						this.refreshAllowedPlanets();
 						this.refreshImportExports();
 					} else {
-						console.log("Cannot add extractor: planet-resource combination does not exist");
+						console.error("Cannot add extractor: planet-resource combination does not exist");
 					}
 				}
 			},this)
@@ -447,7 +447,7 @@ app.factory('Planet', ['FACILITIES', 'PRODUCT', 'LEVEL', 'PiDataModel',
 			return (this.numLaunchpads == 0)
 		},
 		getCopyOfThisPlanet: function(){
-			console.log("Inside Planet.getCopyOfThisPlanet");
+			//console.log("Inside Planet.getCopyOfThisPlanet");
 			var newPlanet = new Planet();
 			angular.forEach(this.factoriesBasic, function(factory){
 				newPlanet.factoriesBasic.push({schematic:factory.schematic, number:factory.number, avgActiveCycles: factory.avgActiveCycles});

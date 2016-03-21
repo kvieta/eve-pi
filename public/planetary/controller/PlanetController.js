@@ -1,7 +1,9 @@
-var app = angular.module('PlanetaryGadget', ['PlanetCoordinator', 'PlanetData', 'ui.bootstrap']);
+var app = angular.module('PlanetaryGadget', ['PlanetCoordinator', 'PlanetData', 'ui.bootstrap', 'MarketConstants', 'ngRoute']);
 
-app.controller('planetAppController', ['$scope', 'PlanetLogic', 'DATA', 'LEVEL', 'PRODUCT', 'PLANETNAME',
-                                       function($scope, PlanetLogic, DATA, LEVEL, PRODUCT, PLANETNAME){
+app.controller('planetAppController', ['$scope', 'PlanetLogic', 'DATA', 'LEVEL', 'PRODUCT', 'PLANETNAME', 'MARKET_IDS', '$routeParams',
+                                       function($scope, PlanetLogic, DATA, LEVEL, PRODUCT, PLANETNAME, MARKET_IDS, $routeParams){
+
+
 	$scope.utilizationMessage = 
 		'A production chain which depends on imports needs to be able to "catch up" if production cycles are missed. '
 		+ 'Checking this enables boxes which can set factories or the planet itself to be active only every X cycles.';
@@ -32,6 +34,34 @@ app.controller('planetAppController', ['$scope', 'PlanetLogic', 'DATA', 'LEVEL',
 		} else {
 			$scope.activeView = 'HELP';
 		}
+	}
+
+	$scope.MARKETS = MARKET_IDS;
+
+
+	$scope.baseUrl = "localhost:3000/#/pi/"; //unsafe?
+	// $scope.baseUrl = "http://www.eveGadgets.com/#/pi/";
+	$scope.saveKey = '';
+
+	$scope.baseMenu.save = function(){
+		$scope.saveKey = '';
+		var promise = $scope.Logic.saveSetup();
+		promise.then(function(successVal){
+				$scope.activeView = "SAVE";
+				$scope.saveKey = successVal;
+			}, function(failReason){
+				$scope.activeView = "SAVE";
+				//saveKey should remain falsy
+			});
+	}
+
+	// $scope.baseMenu.load = function(){}
+
+	/**
+	 * On load
+	 */
+	if($routeParams.loadId){
+		PlanetLogic.loadSetup($routeParams.loadId);
 	}
 	//What is best in Angular?
 	//to define all actions in the controller

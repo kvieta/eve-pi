@@ -21,6 +21,9 @@ server.use('/planetary', planetRoutes);
 var marketRoutes = require('./routes/marketroutes');
 server.use('/webapi', marketRoutes);
 
+var planetPersistRoutes = require('./routes/planetaryPersist')
+server.use('/planetary/persist', planetPersistRoutes);
+
 /**
  * Startup testing stuff begins
  */

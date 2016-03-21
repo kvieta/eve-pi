@@ -1,7 +1,7 @@
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-3 hidden-sm hidden-xs" style="background-color:#f8f8f8; position: fixed; height:3000px; margin-top:-200px"></div>
-		<div id="piNavColumn" class="col-md-3" style="background-color:#f8f8f8">
+		<div class="col-md-3 hidden-sm hidden-xs navbarColor" style="position: fixed; height:3000px; margin-top:-200px"></div>
+		<div id="piNavColumn navbarColor" class="col-md-3 col-sm-12">
 		
 			<a class="btn btn-success btn-lg" ng-click="addPlanet()" style="display:block">Add Planet</a>
 			<ul class="nav nav-pills nav-stacked">
@@ -52,6 +52,7 @@
 						</span>
 					</a>
 				</li>
+				
 			</ul>
 			
 		</div>
@@ -65,6 +66,9 @@
 			    </div>
 			    <div ng-switch-when="MARKETPANEL">
 			    	<eg-pi-marketpanel></eg-pi-marketpanel>
+			    </div>
+			    <div ng-switch-when="SAVE">
+			    	<eg-pi-savepanel></eg-pi-savepanel>
 			    </div>
 			    <div ng-switch-default>
 					<div ng-repeat="p in Logic.planets track by $index" ng-if="activeView == $index">

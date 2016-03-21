@@ -53,8 +53,19 @@ input[type=number]::-webkit-outer-spin-button {
 	padding: 0px 7px;
 } 
 
+.navbarColor {
+	background-color: #eeeeee;
+}
+.navbar-default {
+	background-color: #eeeeee;
+}
+
+.generalBackgroundColor {
+	background-color:#f7f7f7;
+}
+
 #piNavColumn {
-	background-color: #f8f8f8;
+	/*background-color: #f8f8f8;*/
 	height:100%;
 	padding:15px;
 }
@@ -100,6 +111,9 @@ body {
 	display:inline; 
 	line-height:1;
 	margin-left: 5px;
+}
+.generalTextColor {
+	color: #006000;
 }
 .importColors{
 	color: darkorange;

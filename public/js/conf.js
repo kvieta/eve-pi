@@ -1,8 +1,6 @@
 var app = angular.module('gadgets', ['ngRoute','PlanetaryGadget','ScrapGadget','PlanetData']);
 
-app.config(['$routeProvider', function($routeProvider, PiDataService, PiDataModel) {
-	$routeProvider.
-		when('/pi', {
+var planetaryRoute = {
 			appName : "PI Planning Made Simple",
 			templateUrl : 'planetary/piGadgetIndex.html',
 			controller : 'planetAppController',
@@ -12,10 +10,13 @@ app.config(['$routeProvider', function($routeProvider, PiDataService, PiDataMode
 //						console.log("Resolved data, setting in PiDataModel: " + angular.toJson(data));
 						PiDataModel.setData(data);
 						return PiDataModel.getData();
-					})
-				}
-			}
-		}).
+	})	}	}	}
+
+
+app.config(['$routeProvider', function($routeProvider, PiDataService, PiDataModel) {
+	$routeProvider.
+		when('/pi', planetaryRoute).
+		when('/pi/:loadId', planetaryRoute). //populates $routeParams, otherwise identical
 		when('/scrap', {
 			appName : "Scrap for Everyone! But mostly you",
 			templateUrl : 'scrap/scrapGadgetIndex.html',
@@ -32,4 +33,22 @@ app.run(['$rootScope', function($rootScope){
 		if(current.$$route) $rootScope.appName = current.$$route.appName
 		else $rootScope.appName = "Gadgets";
 	})
+}]);
+
+app.controller('baseController', ['$scope', 
+       function($scope){
+
+       	$scope.baseMenu = {};
+       	//undefined save method for child interface
+
+
+       	// alternate approach, ignoring for now
+       	// $scope.saveEvent = function(){
+       	// 	$scope.$broadcast('savePing');
+       	// 	return $scope.msg;
+       	// }
+
+       	// $scope.$on ('savePingResponse', function(e,data){
+       	// 	$scope.msg = data;
+       	// })
 }]);

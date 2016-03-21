@@ -6,6 +6,12 @@ var PlanetSchematics = require('./models/PlanetSchematicRecipes')
 var PlanetResourcesMap = require('./models/PlanetResourcesMap')
 var ItemDetails = require('./models/ItemDetails')
 
+const GOOD = 200;
+const MISSING_DATA = 400;
+const BAD_REQUEST = 422;
+const BAD_DEVELOPER = 500;
+const OTHER = 500;
+
 var connection = 0;
 
 router.get('/planetDetails', function(req, res){
@@ -19,7 +25,7 @@ router.get('/planetDetails', function(req, res){
 	schematicsQuery.exec(function(schematicErr, schematicResult){
 		if(schematicErr){
 			console.error("schematicErr occurred, ", schematicErr)
-			res.send(err);
+			res.status(OTHER).send("Internal server error while accessing database");
 		}
 		var schFuncResult = schematicResultToSchematicMap(schematicResult, itemList)
 		resultMap["schematicMap"] = schFuncResult[0]
@@ -30,8 +36,8 @@ router.get('/planetDetails', function(req, res){
 		 */
 		planetQuery.exec(function(planetErr, planetResult){
 			if(planetErr){
-				console.error("planetErr occurred, ", schematicErr)
-				res.send(planetErr)
+				console.error("planetErr occurred, ", planetErr)
+				res.status(OTHER).send("Internal server error while accessing database");
 			}
 			var pltFuncResult = planetResultToPlanetAndResourceMap(planetResult, itemList)
 			resultMap["resourceMap"] = pltFuncResult[1];
@@ -53,7 +59,7 @@ router.get('/planetDetails', function(req, res){
 					.exec(function(detailsErr, detailsRes){
 				if(detailsErr){
 					console.error("detailsErr occurred:", detailsErr)
-					res.send(detailsErr)
+					res.status(OTHER).send("Internal server error while accessing database");
 				}
 				// console.log("detailsRes: " + detailsRes)
 				var itemDetailsMap = {}
@@ -67,7 +73,7 @@ router.get('/planetDetails', function(req, res){
 					}
 				};
 				resultMap["itemDetails"] = itemDetailsMap
-				res.json(resultMap)
+				res.status(GOOD).json(resultMap)
 			})
 		})
 	});
