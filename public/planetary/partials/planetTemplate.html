@@ -289,11 +289,11 @@
 					Imports/Exports only use Launchpads 
 			</h5>
 			<h5 class="row">
-				<input type="checkbox" ng-model="p.isFactoryPlanet">
+				<input type="checkbox" ng-model="p.isFactoryPlanet" ng-click="p.cyclesPerActiveCycle=1">
 					Partial Utilization 
 				
 				<span ng-if="p.isFactoryPlanet">
-					Planet is active every
+					: Planet is active every
 					<input type="number" ng-model="p.cyclesPerActiveCycle" class="form-inline input-sm utilizationField" 
 					ng-change="p.refreshImportExports()"
 					style="margin-left: initial">
