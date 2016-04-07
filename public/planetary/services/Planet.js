@@ -252,7 +252,9 @@ app.factory('Planet', ['FACILITIES', 'PRODUCT', 'LEVEL', 'PiDataModel',
 					this.importVolume -= item.quantity * PRODUCT.TIER_VOLUME[tier] //quantity is negative, this is += x*-1
 				} //else item.quantity === 0, meaning extractor output and who knows what quantity
 			}, this)
-			if(this.importVolume > this.exportVolume){
+			if(this.importVolume == 0 && this.exportVolume == 0){
+				this.runtime = 0
+			} else if(this.importVolume > this.exportVolume){
 				if(this.importVolume > 0){
 					this.runtime = Math.floor(this.totalStorage / this.importVolume);
 				} //runtime = infinite?
