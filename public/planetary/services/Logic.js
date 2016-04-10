@@ -59,14 +59,17 @@ app.factory('PlanetLogic',['$http', '$q', 'Planet', 'PiDataModel', 'MarketDataSe
 //			planet.ioDetails {id, quantity}
 			angular.forEach(planet.ioDetails, function(io){
 				var index = arrayObjectIndexOf(ioList, io.id, "id");
-				if(index == -1){
-					ioList.push({id: io.id, quantity: io.quantity / planet.cyclesPerActiveCycle});
-				}
-				else {
-					ioList[index].quantity += io.quantity / planet.cyclesPerActiveCycle;
+				if(io.quantity != 0){
+					if(index == -1){
+						ioList.push({id: io.id, quantity: io.quantity / planet.cyclesPerActiveCycle});
+					}
+					else {
+						ioList[index].quantity += io.quantity / planet.cyclesPerActiveCycle;
+					}
 				}
 			})
 		})
+		ioList.sort(function(a,b){return a.quantity - b.quantity})
 		return ioList;
 	}
 	

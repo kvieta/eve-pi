@@ -35,11 +35,19 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0;
 }
 
+input[type=number] {
+	-moz-appearance: textfield;
+}
+
 .nav-pills-condensed {
 	padding-top: 8px !important;
 	padding-bottom:6px !important;
 	padding-right:0px !important;
 	font-size: 17px;
+}
+
+.strong {
+	font-weight:bold;
 }
 
 .navSection{

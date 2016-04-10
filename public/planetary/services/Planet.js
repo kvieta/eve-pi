@@ -10,22 +10,14 @@ app.factory('Planet', ['FACILITIES', 'PRODUCT', 'LEVEL', 'PiDataModel',
 		return -1;
 	}
 	
-//	var Planet = function(name) {
-//	var Planet = function() {
-//	function Planet(name) {
 	function Planet(argName){
 		//console.log("Inside Planet.constructor");
 //		console.log("data connection in Planet: " + angular.toJson(PiData.getData().planetMap[11]));
-//		this.name = name;
 		this.name = argName;
 		this.factoriesBasic = []
 		this.factoriesAdvanced = []
 		this.factoriesHightech = []
-		//list format: { ??? }
-		//should factories have their own logic?
-//		this.extractors = {CPU:0, Grid:0, Cost:0, List:[]}
 		this.extractors = []; //{resourceId: INT, headcount: INT}
-		//list format: { ??? }
 		this.numStorage = 0;
 		this.numLaunchpads = 0;
 		this.allowedPlanets = []; //needs init
@@ -231,10 +223,6 @@ app.factory('Planet', ['FACILITIES', 'PRODUCT', 'LEVEL', 'PiDataModel',
 			},this)
 		},
 		refreshRuntime: function(){
-			//console.log("Inside Planet.refreshRuntime");
-			/* 1. Build import and export volumes
-			 * 2. Set runtime
-			 */
 //			console.log("refreshRuntime prereqs: " + angular.toJson(PRODUCT))
 			this.importVolume = 0;
 			this.exportVolume = 0;

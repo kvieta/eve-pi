@@ -14,7 +14,7 @@
 				</span> -->
 
 					
-					<span class="input-group col-xs-12">
+					<form class="input-group col-xs-12">
 						<span ng-hide="p.editText" class="interactableColor">{{p.name}}</span>
 
 						<input type="text" class="form-control input-lg" ng-model="p.name" ng-show="p.editText">
@@ -34,7 +34,7 @@
 								<span class="glyphicon glyphicon-remove"></span>
 							</button>
 					  	</span>
-					</span>		  	
+					</form>
 		  	</h2>
 		</div>
 	</div>
@@ -134,7 +134,7 @@
 					<td>{{DATA.itemDetails[item.id].name}}</td>
 					<td>{{item.quantity * -1 | number}} </td>
 					<td>{{item.quantity * p.runtime * -1 | number:0}}
-					<td>{{(COST[DATA.itemDetails[item.id].tier] * item.quantity * p.taxRate / 100 * -1) | number}}</td>
+					<td>{{(COST[DATA.itemDetails[item.id].tier] * item.quantity * p.taxRate / 100 * -1)/2 | number}}</td>
 					<!-- <td>{{costByTier[data.itemDetails[item.typeID].tier]}} {{item.quantity}}  {{p.taxRate / 100 * -1}}</td> -->
 				</tr>
 				<tr></tr>
