@@ -39,7 +39,7 @@ app.controller('planetAppController', ['$scope', 'PlanetLogic', 'DATA', 'LEVEL',
 	$scope.MARKETS = MARKET_IDS;
 
 
-	$scope.baseUrl = "localhost:3000/#/pi/"; //unsafe?
+	$scope.baseUrl = "http://EveGadgets.com/#/pi/"; //unsafe?
 	// $scope.baseUrl = "http://www.eveGadgets.com/#/pi/";
 	$scope.saveKey = '';
 
