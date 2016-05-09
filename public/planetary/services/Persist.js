@@ -71,7 +71,7 @@ persistService.service("persistHandler", ['$http', '$q', 'Planet', function($htt
 					};
 					// console.log("planetList is now: ", angular.toJson(planetList));
 					defer.resolve({
-						"market": data.market,
+						"market": data.market.toString(),
 						"planetList": planetList
 					});
 				}
