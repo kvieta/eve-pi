@@ -277,7 +277,7 @@ app.factory('PlanetLogic',['$http', '$q', 'Planet', 'PiDataModel', 'MarketDataSe
 				console.log("saveSetup call succeeded with reply: ", successVal);
 				defer.resolve(successVal); //key
 			}, function(failReason){
-				console.log("saveSetup call failed with reason: ", failReason);
+				console.error("saveSetup call failed with reason: ", failReason);
 				defer.reject();
 			});
 		}
@@ -302,6 +302,96 @@ app.factory('PlanetLogic',['$http', '$q', 'Planet', 'PiDataModel', 'MarketDataSe
 			console.error("loadSetup call failed with reason:", failReason);
 		});
 	}
+
+/*
+	service.populateSetupFromJson = function(stringVersion){
+		var json = angular.fromJson(stringVersion)
+		if(json.is){service.marketId = json.is;}
+			else if(json.es){service.marketId = json.es;}
+			else {service.marketId = 10000002;}
+		// if(json.is && json.es && json.is != json.es) {console.error("Legacy import detected: multiple systems not supported")}
+		if(json.io){service.importOrderType = json.io;} else {service.importOrderType = "buy";}
+		if(json.eo){service.exportOrderType = json.eo;} else {service.exportOrderType = "buy";}
+		if(json.im && json.im != "fivePercent"){console.error("Legacy incompatibility: only supported stat is 'fivePercent'")}
+		if(json.em && json.em != "fivePercent"){console.error("Legacy incompatibility: only supported stat is 'fivePercent'")}
+		if(json.ib){service.brokerFees = json.ib;} 
+			else if(json.eb && !json.ib){service.brokerFees = json.eb;} 
+			else {service.brokerFees = 1;}
+		if(json.it){service.taxRate = json.it;} 
+			else if(json.et){service.taxRate = json.et;} 
+			else {$scope.ex_salestax = 1.5;}
+		var planets = [];
+		angular.forEach(json.pl, function(p){
+			len = len + 1
+			var pName = "Planet " + len
+			if(p.x){pName = p.x}
+			var planet = new Planet(pName);
+			angular.forEach(p.b, function(f){
+				var factory ={schematic:"", number:1, avgActiveCycles:1};
+				if(f.s){
+					factory.schematic = f.s
+				} if (f.n){
+					factory.number = f.n
+				} if (f.a){
+					factory.avgActiveCycles = f.a
+				}
+				planet.factoriesBasic.push(factory);
+			});
+			angular.forEach(p.a, function(f){
+				var factory ={schematic:"", number:1, avgActiveCycles:1};
+				if(f.s){
+					factory.schematic = f.s
+				} if (f.n){
+					factory.number = f.n
+				} if (f.a){
+					factory.avgActiveCycles = f.a
+				}
+				planet.factoriesAdvanced.push(factory);
+			});
+			angular.forEach(p.h, function(f){
+				var factory ={schematic:"", number:1, avgActiveCycles:1};
+				if(f.s){
+					factory.schematic = f.s
+				} if (f.n){
+					factory.number = f.n
+				} if (f.a){
+					factory.avgActiveCycles = f.a
+				}
+				planet.factoriesHightech.push(factory);
+			});
+			angular.forEach(p.e, function(e){
+				var extractor = {resourceId:'', headcount:0};
+				if(e.r){
+					extractor.resourceId = e.r;
+				}
+				if(e.h){
+					extractor.headcount = e.h;
+				}
+				planet.extractors.push(extractor);
+			});
+			if(p.s){planet.numStorage = p.s};
+			if(p.p){planet.numLaunchpads = p.p};
+			if(p.c){planet.useCCStorage = p.c};
+			if(p.r){planet.restrictPads = p.r};
+			if(p.t){planet.taxRate = p.t};
+			if(p.l){planet.level = p.l};
+			if(p.n){planet.avgLinkLength = p.n};
+			if(p.v){planet.cyclesPerActiveCycle = p.v};
+			if(p.f){planet.isFactoryPlanet = p.f};
+			planet.planetId = planets.length;
+			planets.push(planet);
+			console.log(planet);
+		});
+		console.log("should be pushing this now");
+		service.planets = planets;
+		angular.forEach(service.planets, function(p){
+			p.refreshAllowedPlanets();
+			p.refreshImportExports();
+		})
+		// $scope.changeActivePlanet(0);
+	}//populateSetupFromJson
+*/
+
 
 	service.data = data;
 	// service.planets = planetList;
