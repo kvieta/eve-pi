@@ -5,8 +5,9 @@ app.controller('planetAppController', ['$scope', 'PlanetLogic', 'DATA', 'LEVEL',
 
 
 	$scope.utilizationMessage = 
-		'A production chain which depends on imports needs to be able to "catch up" if production cycles are missed. '
-		+ 'Checking this enables boxes which can set factories or the planet itself to be active only every X cycles.';
+		'<p>A setup with imports needs to be able to "catch up" or will be stuck with intermediate product forever.</p>'
+		+ '<p>Checking this enables boxes which can set factories or the planet to be active only every X cycles.</p>'
+		+ '<p>For example, setting the planet to 2 would create a planet active 50% of the time (once every 2 cycles)</p>';
 	
 	$scope.activeView = 'HELP'
 	$scope.setActiveView = function(view){
