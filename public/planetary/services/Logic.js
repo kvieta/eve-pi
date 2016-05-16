@@ -184,10 +184,20 @@ app.factory('PlanetLogic',['$http', '$q', 'Planet', 'PiDataModel', 'MarketDataSe
 					planet.importCost -= this.marketprices[io.id][this.importOrderType].fivePercent * io.quantity
 				}
 			},this)
-			totalHourlyExportRevenue += planet.exportRevenue / planet.cyclesPerActiveCycle;
-			totalHourlyImportCost += planet.importCost / planet.cyclesPerActiveCycle;
+			// totalHourlyExportRevenue += planet.exportRevenue / planet.cyclesPerActiveCycle;
+			// totalHourlyImportCost += planet.importCost / planet.cyclesPerActiveCycle;
 			totalHourlyCustomsTax += (planet.exportTaxes + planet.importTaxes) / planet.cyclesPerActiveCycle;
 		},this)
+		angular.forEach(service.System.importExports, function(io){
+			//Only update import and export costs for complete setup, not both imports and exports
+			if(io.quantity > 0){
+				totalHourlyExportRevenue += 
+					this.marketprices[io.id][this.exportOrderType].fivePercent * io.quantity;
+			} else if (io.quantity < 0){
+				totalHourlyImportCost -= 
+					this.marketprices[io.id][this.importOrderType].fivePercent * io.quantity;
+			}
+		}, this)
 		console.log("After refreshSystemMarketTotals: ", totalHourlyExportRevenue, totalHourlyImportCost, totalHourlyCustomsTax);
 		this.totalHourlyExportRevenue = totalHourlyExportRevenue;
 		this.totalHourlyImportCost = totalHourlyImportCost;
@@ -226,7 +236,7 @@ app.factory('PlanetLogic',['$http', '$q', 'Planet', 'PiDataModel', 'MarketDataSe
 				planet.exportMarketFees = planet.exportRevenue * this.taxRate/100;
 			}
 		},this)
-		console.log("market fees? ", this.totalHourlyImportMarketFees, this.totalHourlyExportMarketFees)
+		// console.log("market fees? ", this.importOrderType, this.exportOrderType, this.taxRate, this.brokerFees, this.totalHourlyImportMarketFees, this.totalHourlyExportMarketFees)
 	}
 
 	this.totalHourlyCustomsTax = 0;
@@ -236,8 +246,8 @@ app.factory('PlanetLogic',['$http', '$q', 'Planet', 'PiDataModel', 'MarketDataSe
 	this.totalHourlyExportMarketFees = 0;
 	
 	service.marketId = "10000002"; //jita
-	service.taxRate = 1.5;
-	service.brokerFees = 1;
+	service.taxRate = 2;
+	service.brokerFees = 3;
 	service.importOrderType = "buy";
 	service.exportOrderType = "buy";
 	service.marketprices = {};
