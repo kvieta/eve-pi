@@ -60,12 +60,19 @@ router.post('/getMarketInfo', function(req, res){
 	var request = http.request(options, function(result){
 		var output = '';
 		result.on('data', function(chunk) {
-			console.log(chunk);
+			// console.log(chunk);
 			output += chunk;
 		});
 
 		result.on('end', function() {
-			var obj = JSON.parse(output);
+			var obj;
+			try{
+				obj = JSON.parse(output);
+			} catch (e){
+				console.error("Marketroute error while parsing json of: ", output);
+				res.status(BAD_GATEWAY).send("received weird response from eve-central");
+				return;
+			}
 			var stats = {};
 			var marketLocation = '';
 			for (var i = obj.length - 1; i >= 0; i--) {

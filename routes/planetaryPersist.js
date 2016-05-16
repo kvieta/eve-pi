@@ -38,6 +38,7 @@ router.post('/load', function(req, res){
 
 /* GET users listing. */
 router.post('/save', function(req, res) {
+	console.log("Got call to save endpoint")
 	var planetquery = populatePlanetSchema(req.body.market, req.body.planets);
 	if(!planetquery){
 		//TODO: fail scenario
@@ -48,7 +49,7 @@ router.post('/save', function(req, res) {
 				console.error("Failed to save planetquery with cause", err);
 				res.status(BAD_DEVELOPER).send("Internal server error while accessing database");
 			} else {
-				console.log("saved: ", data);
+				console.log("Saved setup successfully with id", data._id);
 				res.status(GOOD).send({
 					key: data._id
 				});
@@ -62,6 +63,7 @@ function populatePlanetSchema(market, list){
 		console.error("populatePlanetSchema failed due to invalid arguments")
 		return null;
 	}
+	console.log("Attempting to save setup with", list.length, "planets")
 	var planetSchemaList = [list.length]
 	for (var i = list.length - 1; i >= 0; i--) {
 		var basicFactories = populateFactorySchemas(list[i].factoriesBasic);
@@ -86,7 +88,7 @@ function populatePlanetSchema(market, list){
 			cyclesPerActiveCycle: list[i].cyclesPerActiveCycle,
 			isFactoryPlanet: list[i].isFactoryPlanet
 		};
-		console.log(planet);
+		// console.log(planet);
 		planetSchemaList[i] = planet;
 	};
 	var query = new PIStorage({
