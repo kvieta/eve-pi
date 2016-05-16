@@ -2,39 +2,27 @@
 	<div class="row">
 		<div class="customHeader col-md-11">
 			<h2>
-				
-				
-				<!-- <span class="input-group input-group-lg" ng-show="p.editText">
-					<input type="text" ng-model="p.name" class="form-control">
-					<span class="input-group-btn">
-						<button type="submit" class="btn btn-primary btn-lg" ng-click="p.editText=0">
+				<form class="input-group col-xs-12">
+					<span ng-hide="p.editText" class="interactableColor">{{p.name}}</span>
+
+					<input type="text" class="form-control input-lg" ng-model="p.name" ng-show="p.editText">
+					<span class="input-group-btn" ng-show="p.editText">
+						<button type="submit" class="btn btn-primary btn-lg" ng-click="p.editText=0"
+							style="border-radius: 0px 6px 6px 0px">
 							<span class="glyphicon glyphicon-ok"></span>
 						</button>
 					</span>
-				</span> -->
 
-					
-					<form class="input-group col-xs-12">
-						<span ng-hide="p.editText" class="interactableColor">{{p.name}}</span>
-
-						<input type="text" class="form-control input-lg" ng-model="p.name" ng-show="p.editText">
-						<span class="input-group-btn" ng-show="p.editText">
-							<button type="submit" class="btn btn-primary btn-lg" ng-click="p.editText=0"
-								style="border-radius: 0px 6px 6px 0px">
-								<span class="glyphicon glyphicon-ok"></span>
-							</button>
-						</span>
-
-						<span class="btn-group pull-right">
-							<button type="button" class="btn btn-success btn-md" ng-click="p.editText=!p.editText">Edit Name</button>
-							<button type="button" ng-click="Logic.createPlanetFromCopy(p)" class="btn btn-success btn-md">
-								Create Duplicate
-							</button>
-							<button type="button" ng-click="deletePlanet(p)" class="btn btn-danger btn-md">
-								<span class="glyphicon glyphicon-remove"></span>
-							</button>
-					  	</span>
-					</form>
+					<span class="btn-group pull-right">
+						<button type="button" class="btn btn-success btn-md" ng-click="p.editText=!p.editText">Edit Name</button>
+						<button type="button" ng-click="Logic.createPlanetFromCopy(p)" class="btn btn-success btn-md">
+							Create Duplicate
+						</button>
+						<button type="button" ng-click="deletePlanet(p)" class="btn btn-danger btn-md">
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+				  	</span>
+				</form>
 		  	</h2>
 		</div>
 	</div>
@@ -268,12 +256,12 @@
 				</span>
 			</h5>
 		
-			<h5 class="row">Tax Rate %: <input type="text" class="form-control input-sm" ng-model="p.taxRate" 
+			<h5 class="row">Tax Rate %: <input type="number" class="form-control input-sm" ng-model="p.taxRate" 
 				style="width:40px; display:inline; line-height:1; height:22px" min="0" max="100" maxlength=3 ng-change="p.updateTaxes()">
 			</h5>
 			
 			<h5 class="row">
-				Avg Link Length: <input type="text" class="form-control input-sm" ng-model="p.avgLinkLength" ng-blur="p.refreshFitting()"
+				Avg Link Length: <input type="number" class="form-control input-sm" ng-model="p.avgLinkLength" ng-blur="p.refreshFitting()"
 					style="width:80px; display:inline; line-height:1">
 				<a uib-tooltip="This must be estimated. This can be 10K+ for Gas planets, so don't ignore it">
 					<span class="glyphicon glyphicon-question-sign"></span>

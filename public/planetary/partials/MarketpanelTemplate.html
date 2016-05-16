@@ -44,14 +44,14 @@
 							<div class="form-group">
 								<label for="salestaxInput" class="col-xs-7 control-label">Sales Tax</label>
 								<div class="col-xs-5">
-									<input type="text" class="form-control" id="salestaxInput" ng-model="Logic.taxRate"
+									<input type="number" class="form-control" id="salestaxInput" ng-model="Logic.taxRate"
 										ng-change="Logic.refreshMarketFees()">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="brokerfeesInput" class="col-xs-7 control-label">Broker Fees</label>
 								<div class="col-xs-5">
-									<input type="text" class="form-control" id="brokerfeesInput" ng-model="Logic.brokerFees"
+									<input type="number" class="form-control" id="brokerfeesInput" ng-model="Logic.brokerFees"
 										ng-change="Logic.refreshMarketFees()">
 								</div>
 							</div>
