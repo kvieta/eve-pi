@@ -265,9 +265,9 @@ app.factory('Planet', ['FACILITIES', 'PRODUCT', 'LEVEL', 'PiDataModel',
 				} else if (item.quantity < 0){
 					var details = PiData.getData().itemDetails[item.id];
 					var tier = details.tier;
-					this.importTaxes -= item.quantity * PRODUCT.TIER_COST[tier] * this.taxRate/100
+					console.log("Import Taxes: ", item.quantity, tier, this.taxRate, PRODUCT.TIER_COST[tier])
+					this.importTaxes -= item.quantity * PRODUCT.TIER_COST[tier] * this.taxRate/100 *0.5 //import taxe are halved
 				} //else item.quantity === 0, meaning extractor output and who knows what quantity
-				this.importTaxes = this.importTaxes / 2 //import taxes are halved 
 			}, this)
 		},
 		refreshAllowedPlanets: function(){
