@@ -33,7 +33,7 @@ const BAD_GATEWAY = 502;
 router.post('/getMarketInfo', function(req, res){
 	connections += 1;
 	console.log("getMarketInfo #", connections);
-	//http://api.eve-central.com/api/marketstat/json?
+	//http://api.evemarketer.com/ec/marketstat/json?
 	if(!req.body.system || !req.body.idList){
 		console.log("bad request:", req.body);
 		res.status(MISSING_DATA).send("Correct usage is {system: Number, idList: [Number]");
@@ -53,8 +53,8 @@ router.post('/getMarketInfo', function(req, res){
 	};
 
 	var options = {
-		host: "api.eve-central.com",
-		path: "/api/marketstat/json?" + location + types
+		host: "api.evemarketer.com",
+		path: "/ec/marketstat/json?" + location + types
 	};
 	// console.log("options are:", options);
 	var request = http.request(options, function(result){
@@ -70,7 +70,7 @@ router.post('/getMarketInfo', function(req, res){
 				obj = JSON.parse(output);
 			} catch (e){
 				console.error("Marketroute error while parsing json of: ", output);
-				res.status(BAD_GATEWAY).send("received weird response from eve-central");
+				res.status(BAD_GATEWAY).send("received weird response from evemarketer");
 				return;
 			}
 			var stats = {};
@@ -82,7 +82,7 @@ router.post('/getMarketInfo', function(req, res){
 				var all = obj[i]["all"]
 				if(!buy || !sell || !all){
 					console.error("successful reply, bad format:", options);
-					res.status(BAD_DEVELOPER).send("Successful but invalid response from eve-central");
+					res.status(BAD_DEVELOPER).send("Successful but invalid response from evemarketer");
 					continue;
 				}
 				var type = buy.forQuery.types[0];
